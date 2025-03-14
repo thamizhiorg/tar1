@@ -19,17 +19,19 @@ export interface Workflow {
 
 // Sample workflow types
 export const workflowTypes = [
-  { id: 'ai-step', name: 'AI Step', description: 'Processes tasks with AI' },
-  { id: 'input-field', name: 'Input Field', description: 'Collects user input' },
-  { id: 'web-search', name: 'Web Search', description: 'Searches the web for information' },
-  { id: 'upload-resource', name: 'Upload Resource', description: 'Uploads files or resources' },
-  { id: 'instruction', name: 'Instruction', description: 'Provides instructions to the AI' },
-  { id: 'formatting', name: 'Formatting', description: 'Formats the output' },
-  { id: 'task-manager', name: 'Task Manager', description: 'Manages tasks and workflows' },
-  { id: 'content-creator', name: 'Content Creator', description: 'Creates content based on prompts' },
-  { id: 'data-executive', name: 'Data Executive', description: 'Analyzes and processes data' },
-  { id: 'health-wellness', name: 'Health & Wellness', description: 'Tracks health metrics' },
-  { id: 'sustainability', name: 'Sustainability Advisor', description: 'Provides sustainability insights' },
+  { id: 'inputs', name: 'Inputs', description: 'Input components for your workflow' },
+  { id: 'outputs', name: 'Outputs', description: 'Output components for your workflow' },
+  { id: 'prompts', name: 'Prompts', description: 'Prompt templates and configurations' },
+  { id: 'data', name: 'Data', description: 'Data sources and management' },
+  { id: 'processing', name: 'Processing', description: 'Data processing and transformation' },
+  { id: 'models', name: 'Models', description: 'AI models and inference' },
+  { id: 'vectorStores', name: 'Vector Stores', description: 'Vector database storage' },
+  { id: 'embeddings', name: 'Embeddings', description: 'Text embedding generation' },
+  { id: 'agents', name: 'Agents', description: 'Autonomous agent components' },
+  { id: 'memories', name: 'Memories', description: 'Memory storage for conversations' },
+  { id: 'tools', name: 'Tools', description: 'Utility tools for workflows' },
+  { id: 'logic', name: 'Logic', description: 'Logical operations and flow control' },
+  { id: 'helpers', name: 'Helpers', description: 'Helper utilities and functions' }
 ];
 
 // Sample workflows
