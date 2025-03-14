@@ -29,6 +29,7 @@ import {
   addWorkflow,
   addStepToWorkflow
 } from './agentDatabase';
+import { inputStyles } from './styles/agents.styles';
 
 // Enable LayoutAnimation for Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -368,9 +369,9 @@ const InputFieldsEditor = ({
 
 // Tab Navigation Component
 const TabNavigation = ({ activeTab, onTabPress }: { activeTab: string, onTabPress: (tab: string) => void }) => (
-  <View style={styles.tabContainer}>
+  <View style={inputStyles.tabContainer}>
     <TouchableOpacity 
-      style={[styles.tab, activeTab === 'workflows' && styles.activeTab]}
+      style={[inputStyles.tab, activeTab === 'workflows' && inputStyles.activeTab]}
       onPress={() => onTabPress('workflows')}
     >
       <Ionicons 
@@ -378,10 +379,10 @@ const TabNavigation = ({ activeTab, onTabPress }: { activeTab: string, onTabPres
         size={20} 
         color={activeTab === 'workflows' ? '#007AFF' : '#666'} 
       />
-      <Text style={[styles.tabText, activeTab === 'workflows' && styles.activeTabText]}>Workflows</Text>
+      <Text style={[inputStyles.tabText, activeTab === 'workflows' && inputStyles.activeTabText]}>Workflows</Text>
     </TouchableOpacity>
     <TouchableOpacity 
-      style={[styles.tab, activeTab === 'settings' && styles.activeTab]}
+      style={[inputStyles.tab, activeTab === 'settings' && inputStyles.activeTab]}
       onPress={() => onTabPress('settings')}
     >
       <Ionicons 
@@ -389,7 +390,7 @@ const TabNavigation = ({ activeTab, onTabPress }: { activeTab: string, onTabPres
         size={20} 
         color={activeTab === 'settings' ? '#007AFF' : '#666'} 
       />
-      <Text style={[styles.tabText, activeTab === 'settings' && styles.activeTabText]}>Settings</Text>
+      <Text style={[inputStyles.tabText, activeTab === 'settings' && inputStyles.activeTabText]}>Settings</Text>
     </TouchableOpacity>
   </View>
 );
@@ -429,22 +430,22 @@ const StepInput = ({ onAddStep }: { onAddStep: (step: WorkflowStep) => void }) =
   };
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={inputStyles.inputContainer}>
       <TextInput
-        style={styles.input}
+        style={inputStyles.input}
         placeholder="Type step name or use @ for type..."
         value={inputText}
         onChangeText={handleInputChange}
         onSubmitEditing={handleAddStep}
       />
       {showTypeSelector && (
-        <View style={styles.typeSelector}>
+        <View style={inputStyles.typeSelector}>
           {workflowTypes.map(type => (
             <TouchableOpacity
               key={type.id}
               style={[
-                styles.typeOption,
-                selectedType === type.id && styles.selectedTypeOption
+                inputStyles.typeOption,
+                selectedType === type.id && inputStyles.selectedTypeOption
               ]}
               onPress={() => {
                 setSelectedType(type.id);
@@ -457,8 +458,8 @@ const StepInput = ({ onAddStep }: { onAddStep: (step: WorkflowStep) => void }) =
                 color={selectedType === type.id ? '#fff' : '#666'} 
               />
               <Text style={[
-                styles.typeOptionText,
-                selectedType === type.id && styles.selectedTypeOptionText
+                inputStyles.typeOptionText,
+                selectedType === type.id && inputStyles.selectedTypeOptionText
               ]}>
                 {type.name}
               </Text>
@@ -501,22 +502,22 @@ const AgentSettings = ({
   };
 
   return (
-    <ScrollView style={styles.settingsContainer}>
-      <View style={styles.settingsSection}>
-        <Text style={styles.settingsTitle}>Basic Information</Text>
-        <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Agent Name</Text>
+    <ScrollView style={inputStyles.settingsContainer}>
+      <View style={inputStyles.settingsSection}>
+        <Text style={inputStyles.settingsTitle}>Basic Information</Text>
+        <View style={inputStyles.inputGroup}>
+          <Text style={inputStyles.inputLabel}>Agent Name</Text>
           <TextInput
-            style={styles.settingsInput}
+            style={inputStyles.settingsInput}
             value={name}
             onChangeText={setName}
             placeholder="Enter agent name"
           />
         </View>
-        <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Description</Text>
+        <View style={inputStyles.inputGroup}>
+          <Text style={inputStyles.inputLabel}>Description</Text>
           <TextInput
-            style={[styles.settingsInput, styles.textArea]}
+            style={[inputStyles.settingsInput, inputStyles.textArea]}
             value={description}
             onChangeText={setDescription}
             placeholder="Enter agent description"
@@ -525,10 +526,10 @@ const AgentSettings = ({
         </View>
       </View>
 
-      <View style={styles.settingsSection}>
-        <Text style={styles.settingsTitle}>Configuration</Text>
-        <View style={styles.switchGroup}>
-          <Text style={styles.switchLabel}>Public Access</Text>
+      <View style={inputStyles.settingsSection}>
+        <Text style={inputStyles.settingsTitle}>Configuration</Text>
+        <View style={inputStyles.switchGroup}>
+          <Text style={inputStyles.switchLabel}>Public Access</Text>
           <Switch
             value={isPublic}
             onValueChange={setIsPublic}
@@ -536,20 +537,20 @@ const AgentSettings = ({
             thumbColor={isPublic ? '#007AFF' : '#f4f3f4'}
           />
         </View>
-        <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>API Key</Text>
+        <View style={inputStyles.inputGroup}>
+          <Text style={inputStyles.inputLabel}>API Key</Text>
           <TextInput
-            style={styles.settingsInput}
+            style={inputStyles.settingsInput}
             value={apiKey}
             onChangeText={setApiKey}
             placeholder="Enter API key"
             secureTextEntry
           />
         </View>
-        <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Webhook URL</Text>
+        <View style={inputStyles.inputGroup}>
+          <Text style={inputStyles.inputLabel}>Webhook URL</Text>
           <TextInput
-            style={styles.settingsInput}
+            style={inputStyles.settingsInput}
             value={webhookUrl}
             onChangeText={setWebhookUrl}
             placeholder="Enter webhook URL"
@@ -557,12 +558,12 @@ const AgentSettings = ({
         </View>
       </View>
 
-      <View style={styles.settingsSection}>
+      <View style={inputStyles.settingsSection}>
         <TouchableOpacity 
-          style={styles.publishButton}
+          style={inputStyles.publishButton}
           onPress={onPublish}
         >
-          <Text style={styles.publishButtonText}>Publish Agent</Text>
+          <Text style={inputStyles.publishButtonText}>Publish Agent</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -588,16 +589,16 @@ const AgentInput = ({ onAddAgent }: { onAddAgent: (agent: Agent) => void }) => {
   };
 
   return (
-    <View style={styles.agentInputContainer}>
-      <View style={styles.inputWithIcon}>
+    <View style={inputStyles.bottomNav}>
+      <View style={inputStyles.inputBar}>
         <TextInput
-          style={styles.agentNameInput}
+          style={inputStyles.textInput}
           placeholder="Type agent name..."
           value={inputText}
           onChangeText={setInputText}
         />
         <TouchableOpacity 
-          style={[styles.addIconButton, !inputText.trim() && styles.disabledButton]}
+          style={[inputStyles.addButton, !inputText.trim() && inputStyles.addButtonDisabled]}
           onPress={handleAddAgent}
           disabled={!inputText.trim()}
         >
@@ -617,6 +618,7 @@ export default function AgentsScreen() {
   const [editingStep, setEditingStep] = useState<WorkflowStep | null>(null);
   const [showInputEditor, setShowInputEditor] = useState(false);
   const [inputFields, setInputFields] = useState<InputField[]>([]);
+  const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
 
   // Load data on component mount
   useEffect(() => {
@@ -635,7 +637,6 @@ export default function AgentsScreen() {
 
   const handleAddAgent = (agent: Agent) => {
     setAgents([...agents, agent]);
-    setSelectedAgent(agent);
   };
 
   const handleUpdateAgent = (updatedAgent: Agent) => {
@@ -673,65 +674,74 @@ export default function AgentsScreen() {
 
   const handleRemoveStep = (stepId: string) => {
     setSteps(steps.filter(step => step.id !== stepId));
+    setSelectedStepId(null);
   };
 
   const renderAgentItem = ({ item }: { item: Agent }) => (
     <TouchableOpacity 
-      style={styles.agentItem}
+      style={inputStyles.listItem}
       onPress={() => setSelectedAgent(item)}
     >
-      <View style={styles.agentContent}>
-        <Text style={styles.agentName}>{item.name}</Text>
-        <Text style={styles.agentDescription}>{item.description}</Text>
+      <View style={inputStyles.listItemContent}>
+        <Text style={inputStyles.listItemTitle}>{item.name}</Text>
+        <View style={inputStyles.listItemInfo}>
+          <Text style={inputStyles.listItemSubtext}>{item.description}</Text>
+          <Text style={inputStyles.listItemStatus}>Not Published</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
 
   const renderStepItem = ({ item, index }: { item: WorkflowStep, index: number }) => (
     <TouchableOpacity 
-      style={styles.stepItem}
+      style={inputStyles.listItem}
       onPress={() => handleEditStep(item)}
+      onLongPress={() => setSelectedStepId(selectedStepId === item.id ? null : item.id)}
+      delayLongPress={300}
     >
-      <View style={styles.stepContent}>
-        <View style={styles.stepHeader}>
-          <Text style={styles.stepNumber}>{index + 1}</Text>
-          <Text style={styles.stepName}>{item.name}</Text>
-        </View>
-        <View style={styles.stepFooter}>
-          <View style={styles.stepTypeBadge}>
+      <View style={inputStyles.listItemContent}>
+        <Text style={inputStyles.listItemTitle}>{item.name}</Text>
+        <View style={inputStyles.listItemInfo}>
+          <View style={inputStyles.stepTypeBadge}>
             <Ionicons 
               name={workflowTypes.find(t => t.id === item.type)?.icon || 'help-outline'} 
               size={14} 
               color="#666" 
             />
-            <Text style={styles.stepTypeText}>{item.type}</Text>
+            <Text style={inputStyles.stepTypeText}>{item.type}</Text>
           </View>
-          <TouchableOpacity 
-            style={styles.removeButton}
-            onPress={() => handleRemoveStep(item.id)}
-          >
-            <Ionicons name="trash-outline" size={18} color="#FF3B30" />
-          </TouchableOpacity>
+          {selectedStepId === item.id && (
+            <TouchableOpacity 
+              style={[inputStyles.removeButton, { backgroundColor: '#ffeeee', borderRadius: 20 }]}
+              onPress={() => handleRemoveStep(item.id)}
+            >
+              <Ionicons name="close-circle" size={24} color="#FF3B30" />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={inputStyles.container}>
       <StatusBar barStyle="dark-content" />
       
       {/* Header */}
-      <View style={styles.header}>
-        {selectedAgent && (
-          <TouchableOpacity 
-            style={styles.backButton}
-            onPress={() => setSelectedAgent(null)}
-          >
-            <Ionicons name="arrow-back" size={24} color="#333" />
-          </TouchableOpacity>
+      <View style={inputStyles.header}>
+        {selectedAgent ? (
+          <>
+            <TouchableOpacity 
+              style={inputStyles.backButton}
+              onPress={() => setSelectedAgent(null)}
+            >
+              <Ionicons name="arrow-back" size={24} color="#333" />
+            </TouchableOpacity>
+            <Text style={inputStyles.headerTitle}>{selectedAgent.name}</Text>
+          </>
+        ) : (
+          <Text style={inputStyles.headerTitle}>AI Agents</Text>
         )}
-        <Text style={styles.headerTitle}>AI Agents</Text>
       </View>
 
       {selectedAgent ? (
@@ -740,22 +750,22 @@ export default function AgentsScreen() {
           <TabNavigation activeTab={activeTab} onTabPress={setActiveTab} />
 
           {loading ? (
-            <View style={styles.loadingContainer}>
+            <View style={inputStyles.loadingContainer}>
               <ActivityIndicator size="large" color="#007AFF" />
-              <Text style={styles.loadingText}>Loading...</Text>
+              <Text style={inputStyles.loadingText}>Loading...</Text>
             </View>
           ) : showInputEditor ? (
             <>
-              <View style={styles.inputEditorHeader}>
+              <View style={inputStyles.inputEditorHeader}>
                 <TouchableOpacity 
-                  style={styles.backButton}
+                  style={inputStyles.backButton}
                   onPress={() => setShowInputEditor(false)}
                 >
                   <Ionicons name="arrow-back" size={24} color="#333" />
                 </TouchableOpacity>
-                <Text style={styles.inputEditorTitle}>Edit Fields</Text>
+                <Text style={inputStyles.inputEditorTitle}>Edit Fields</Text>
                 <TouchableOpacity 
-                  style={styles.saveButton}
+                  style={inputStyles.saveButton}
                   onPress={() => {
                     if (editingStep) {
                       handleSaveStep({
@@ -788,8 +798,14 @@ export default function AgentsScreen() {
                 data={steps}
                 renderItem={renderStepItem}
                 keyExtractor={item => item.id}
-                contentContainerStyle={styles.list}
-                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                contentContainerStyle={inputStyles.list}
+                ItemSeparatorComponent={() => <View style={inputStyles.separator} />}
+                ListEmptyComponent={() => (
+                  <View style={inputStyles.emptyContainer}>
+                    <Text style={inputStyles.emptyText}>No steps added yet</Text>
+                    <Text style={inputStyles.emptySubtext}>Add your first step below</Text>
+                  </View>
+                )}
               />
 
               {/* Bottom Input */}
@@ -810,14 +826,14 @@ export default function AgentsScreen() {
             data={agents}
             renderItem={renderAgentItem}
             keyExtractor={item => item.id}
-            contentContainerStyle={styles.list}
+            contentContainerStyle={inputStyles.list}
             ListEmptyComponent={() => (
-              <View style={styles.emptyListContainer}>
-                <Text style={styles.emptyListText}>No agents created yet</Text>
-                <Text style={styles.emptyListSubtext}>Create your first agent below</Text>
+              <View style={inputStyles.emptyContainer}>
+                <Text style={inputStyles.emptyText}>No agents created yet</Text>
+                <Text style={inputStyles.emptySubtext}>Create your first agent below</Text>
               </View>
             )}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            ItemSeparatorComponent={() => <View style={inputStyles.separator} />}
           />
 
           {/* Bottom Input */}
@@ -836,7 +852,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
@@ -845,6 +862,94 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#000',
+  },
+  list: {
+    paddingHorizontal: 15,
+  },
+  listItem: {
+    paddingVertical: 20,
+  },
+  listItemContent: {
+    flex: 1,
+  },
+  listItemTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+  },
+  listItemInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  listItemSubtext: {
+    fontSize: 14,
+    color: '#666',
+  },
+  listItemStatus: {
+    fontSize: 14,
+    color: '#666',
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginTop: 50,
+  },
+  emptyText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  emptySubtext: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+  },
+  bottomNav: {
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+    paddingBottom: 20,
+  },
+  inputBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  textInput: {
+    flex: 1,
+    height: 40,
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 20,
+    fontSize: 16,
+  },
+  addButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#007AFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addButtonDisabled: {
+    backgroundColor: '#e0e0e0',
   },
   tabContainer: {
     flexDirection: 'row',
@@ -873,206 +978,26 @@ const styles = StyleSheet.create({
     color: '#007AFF',
     fontWeight: '600',
   },
-  list: {
-    padding: 20,
-  },
-  stepItem: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  stepContent: {
-    flex: 1,
-  },
-  stepHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  stepNumber: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#f0f0f0',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginRight: 10,
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  stepName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  stepFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  stepTypeBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  stepTypeText: {
-    fontSize: 12,
-    color: '#666',
-    marginLeft: 4,
-  },
-  removeButton: {
-    padding: 5,
-  },
-  separator: {
-    height: 12,
-  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   loadingText: {
+    fontSize: 16,
+    color: '#666',
     marginTop: 10,
-    fontSize: 16,
-    color: '#666',
-  },
-  inputContainer: {
-    padding: 15,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    backgroundColor: '#fff',
-  },
-  input: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    fontSize: 16,
-  },
-  typeSelector: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 10,
-    gap: 8,
-  },
-  typeOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  selectedTypeOption: {
-    backgroundColor: '#007AFF',
-  },
-  typeOptionText: {
-    fontSize: 14,
-    color: '#666',
-    marginLeft: 6,
-  },
-  selectedTypeOptionText: {
-    color: '#fff',
-  },
-  settingsContainer: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
-  },
-  settingsSection: {
-    backgroundColor: '#fff',
-    padding: 20,
-    marginBottom: 20,
-  },
-  settingsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
-  },
-  inputGroup: {
-    marginBottom: 15,
-  },
-  inputLabel: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 5,
-  },
-  settingsInput: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: 'top',
-  },
-  switchGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  switchLabel: {
-    fontSize: 16,
-    color: '#333',
-  },
-  publishButton: {
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
-  },
-  publishButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  agentItem: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  agentContent: {
-    flex: 1,
-  },
-  agentName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 5,
-  },
-  agentDescription: {
-    fontSize: 14,
-    color: '#666',
-  },
-  backButton: {
-    padding: 5,
-    marginRight: 10,
   },
   inputEditorHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    padding: 10,
+  },
+  backButton: {
+    padding: 5,
   },
   inputEditorTitle: {
+    flex: 1,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
@@ -1080,255 +1005,56 @@ const styles = StyleSheet.create({
   saveButton: {
     padding: 5,
   },
-  agentInputContainer: {
-    padding: 20,
-    backgroundColor: '#f9f9f9',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
+  settingsContainer: {
+    padding: 15,
   },
-  inputWithIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  settingsSection: {
+    marginBottom: 20,
   },
-  agentNameInput: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 25,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    fontSize: 16,
-  },
-  addIconButton: {
-    backgroundColor: '#007AFF',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 10,
-  },
-  disabledButton: {
-    backgroundColor: '#CCCCCC',
-  },
-  emptyListContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  emptyListText: {
+  settingsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 10,
   },
-  emptyListSubtext: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
+  inputGroup: {
+    marginBottom: 10,
   },
-});
-
-// Input Fields Editor Styles
-const inputStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
-  },
-  tableContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    backgroundColor: '#f5f5f5',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    alignItems: 'center',
-  },
-  tableHeaderCell: {
-    fontSize: 13,
+  inputLabel: {
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#666',
-    textAlign: 'left',
-  },
-  columnToggle: {
-    width: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tableRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    minHeight: 38,
-  },
-  selectedRow: {
-    backgroundColor: '#f0f8ff',
-  },
-  tableRowContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  tableCell: {
-    paddingHorizontal: 8,
-    fontSize: 14,
     color: '#333',
-    paddingVertical: 8,
+    marginBottom: 5,
   },
-  typeCell: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  typeCellText: {
-    marginLeft: 6,
-    fontSize: 13,
-    color: '#666',
-  },
-  requiredCell: {
-    alignItems: 'center',
-  },
-  rowActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 5,
-  },
-  actionButton: {
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  deleteButton: {
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  chatInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    backgroundColor: '#fff',
-  },
-  chatInput: {
-    flex: 1,
-    fontSize: 14,
-    color: '#333',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+  settingsInput: {
+    height: 40,
     backgroundColor: '#f5f5f5',
     borderRadius: 20,
+    paddingHorizontal: 10,
   },
-  addButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    backgroundColor: '#007AFF',
-    borderRadius: 16,
-    marginLeft: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+  textArea: {
+    height: 100,
+    paddingVertical: 10,
   },
-  addButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  disabledButton: {
-    backgroundColor: '#ccc',
-  },
-  typeSelectorPopup: {
-    position: 'absolute',
-    bottom: 60,
-    left: 15,
-    width: 150,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  typeOptionVertical: {
+  switchGroup: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    marginVertical: 2,
-    borderRadius: 6,
+    marginBottom: 10,
   },
-  selectedTypeOption: {
-    backgroundColor: '#007AFF',
-  },
-  typeOptionText: {
-    fontSize: 13,
-    color: '#666',
-    marginLeft: 8,
-  },
-  selectedTypeOptionText: {
-    color: '#fff',
-  },
-  fieldTypeModal: {
-    width: '90%',
-    maxHeight: '70%',
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    overflow: 'hidden',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  fieldTypeModalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  fieldTypeModalTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  fieldTypeItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-  },
-  fieldTypeItemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  fieldTypeItemSelected: {
-    backgroundColor: '#f0f8ff',
-  },
-  fieldTypeItemText: {
+  switchLabel: {
+    flex: 1,
     fontSize: 16,
     color: '#333',
-    marginLeft: 10,
   },
-  fieldTypeItemTextSelected: {
-    color: '#007AFF',
+  publishButton: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  publishButtonText: {
+    fontSize: 16,
     fontWeight: 'bold',
+    color: '#fff',
   },
 }); 
