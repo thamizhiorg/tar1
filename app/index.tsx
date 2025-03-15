@@ -128,7 +128,9 @@ export default function Index() {
             <Text style={styles.buttonText}>I</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.minimalSquareButton}>
+          <TouchableOpacity style={styles.minimalSquareButton} onPress={() => {
+            router.push('/instant');
+          }}>
             <Text style={styles.buttonText}>Q</Text>
           </TouchableOpacity>
           
