@@ -124,7 +124,9 @@ export default function Index() {
             <Text style={styles.buttonText}>row</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.minimalSquareButton}>
+          <TouchableOpacity style={styles.minimalSquareButton} onPress={() => {
+            router.push('/aiagents');
+          }}>
             <Text style={styles.buttonText}>I</Text>
           </TouchableOpacity>
           
