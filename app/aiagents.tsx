@@ -5,6 +5,7 @@ import {
   TouchableOpacity, SafeAreaView, StatusBar 
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import FlowEditor from "../components/FlowEditor";;
 
 const APP_ID = "84f087af-f6a5-4a5f-acbc-bc4008e3a725";
 
@@ -44,10 +45,14 @@ function App() {
   
   // If showing flow editor, render that instead of the main screen
   if (showFlowEditor && editingAgent) {
-    return <FlowEditor agent={editingAgent} onClose={() => {
-      setShowFlowEditor(false);
-      setEditingAgent(null);
-    }} />;
+    return <FlowEditor 
+      agent={editingAgent} 
+      onClose={() => {
+        setShowFlowEditor(false);
+        setEditingAgent(null);
+      }}
+      onSave={updateAgentFlow}
+    />;
   }
   
   return (
@@ -132,55 +137,6 @@ function AgentList({ agents, onEditFlow }: { agents: Agent[], onEditFlow: (agent
         );
       })}
     </ScrollView>
-  );
-}
-
-// Replace modal with a full component
-function FlowEditor({ 
-  agent, 
-  onClose 
-}: { 
-  agent: Agent, 
-  onClose: () => void 
-}) {
-  const [newFlow, setNewFlow] = useState(agent.flow);
-  
-  const handleSave = () => {
-    updateAgentFlow(agent, newFlow);
-    onClose();
-  };
-  
-  return (
-    <SafeAreaView style={styles.fullScreen}>
-      <StatusBar barStyle="dark-content" />
-      
-      <View style={styles.modalHeader}>
-        <TouchableOpacity 
-          style={styles.backButton} 
-          onPress={onClose}
-        >
-          <Text style={styles.backIcon}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.modalTitle}>{agent.name}</Text>
-        <TouchableOpacity 
-          style={styles.saveButtonHeader} 
-          onPress={handleSave}
-        >
-          <Text style={styles.saveButtonText}>Save</Text>
-        </TouchableOpacity>
-      </View>
-      
-      <View style={styles.modalContent}>
-        <Text style={styles.flowLabel}>Flow</Text>
-        <TextInput
-          style={styles.flowInput}
-          placeholder="Define the agent flow here..."
-          value={newFlow}
-          onChangeText={setNewFlow}
-          multiline={true}
-        />
-      </View>
-    </SafeAreaView>
   );
 }
 
