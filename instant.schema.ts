@@ -13,6 +13,7 @@ const _schema = i.schema({
     }),
     agents: i.entity({
       flow: i.string(),
+      icon: i.string(),
       name: i.string(),
     }),
     executions: i.entity({
@@ -62,6 +63,10 @@ const _schema = i.schema({
       createdAt: i.number(),
       done: i.boolean(),
       text: i.string(),
+    }),
+    tools: i.entity({
+      function: i.string(),
+      name: i.string(),
     }),
   },
   links: {

@@ -136,6 +136,12 @@ export default function Index() {
             <Text style={styles.buttonText}>Q</Text>
           </TouchableOpacity>
           
+          <TouchableOpacity style={styles.minimalSquareButton} onPress={() => {
+            router.push('/tools');
+          }}>
+            <Text style={styles.buttonText}>T</Text>
+          </TouchableOpacity>
+          
           <View style={styles.shellBarSpacer} />
           
           <TouchableOpacity 
