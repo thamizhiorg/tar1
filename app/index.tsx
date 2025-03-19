@@ -8,6 +8,7 @@ export default function Index() {
   const [pages, setPages] = useState<Page[]>([]);
   const [loading, setLoading] = useState(true);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [inputText, setInputText] = useState('');
 
   // Sample slash commands
   const slashCommands = [
@@ -21,8 +22,25 @@ export default function Index() {
   const handleCommandSelect = (command: string) => {
     // Here you would implement the logic for each command
     console.log(`Selected command: ${command}`);
+    setInputText(command + ' ');
     setShowSuggestions(false);
     // Additional command handling logic would go here
+  };
+
+  const handleSlashButtonPress = () => {
+    setInputText('/');
+    setShowSuggestions(true);
+  };
+
+  const handleInputChange = (text: string) => {
+    setInputText(text);
+    if (text === '/') {
+      setShowSuggestions(true);
+    } else if (text.startsWith('/')) {
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
   };
 
   // Render each slash command suggestion
@@ -124,9 +142,9 @@ export default function Index() {
         
         {/* Input Bar (Modern AI chat input design) */}
         <View style={styles.inputBar}>
-          {/* Left side buttons */}
-          <TouchableOpacity style={styles.iconButton}>
-            <Ionicons name="add" size={24} color="#000" />
+          {/* Left side buttons - Slash button */}
+          <TouchableOpacity style={styles.slashButton} onPress={handleSlashButtonPress}>
+            <Text style={styles.slashButtonText}>/</Text>
           </TouchableOpacity>
           
           {/* Input field */}
@@ -134,7 +152,8 @@ export default function Index() {
             style={styles.textInput}
             placeholder="Type a message..."
             placeholderTextColor="#999"
-            onFocus={() => setShowSuggestions(false)}
+            value={inputText}
+            onChangeText={handleInputChange}
           />
           
           {/* Vertical divider */}
@@ -391,11 +410,11 @@ const styles = StyleSheet.create({
     bottom: '100%',
     left: 0,
     right: 0,
+    width: '100%',
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#f0f2f5',
     borderRadius: 8,
-    marginHorizontal: 15,
     marginBottom: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -406,6 +425,7 @@ const styles = StyleSheet.create({
   },
   suggestionsList: {
     padding: 10,
+    width: '100%',
   },
   suggestionItem: {
     flexDirection: 'row',
@@ -415,6 +435,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
+    width: '100%',
   },
   commandText: {
     fontSize: 16,
@@ -428,6 +449,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   activeSlash: {
+    color: '#007AFF',
+  },
+  slashButton: {
+    marginLeft: 2,
+    borderRadius: 6,
+    backgroundColor: '#f8f8f8',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+  },
+  slashButtonText: {
+    fontSize: 12,
+    fontWeight: 'bold',
     color: '#007AFF',
   },
 });
