@@ -7,6 +7,34 @@ import { router } from 'expo-router';
 export default function Index() {
   const [pages, setPages] = useState<Page[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Sample slash commands
+  const slashCommands = [
+    { id: '1', command: '/text', description: 'Add text content to the page' },
+    { id: '2', command: '/image', description: 'Upload or add image from gallery' },
+    { id: '3', command: '/code', description: 'Add code snippet with syntax highlighting' },
+    { id: '4', command: '/table', description: 'Insert a new data table' },
+    { id: '5', command: '/ai', description: 'Ask AI to generate content' },
+  ];
+
+  const handleCommandSelect = (command: string) => {
+    // Here you would implement the logic for each command
+    console.log(`Selected command: ${command}`);
+    setShowSuggestions(false);
+    // Additional command handling logic would go here
+  };
+
+  // Render each slash command suggestion
+  const renderSuggestionItem = ({ item }: { item: { id: string, command: string, description: string } }) => (
+    <TouchableOpacity 
+      style={styles.suggestionItem} 
+      onPress={() => handleCommandSelect(item.command)}
+    >
+      <Text style={styles.commandText}>{item.command}</Text>
+      <Text style={styles.descriptionText}>{item.description}</Text>
+    </TouchableOpacity>
+  );
 
   useEffect(() => {
     // Initialize the database and load pages
@@ -81,11 +109,24 @@ export default function Index() {
       
       {/* Bottom Navigation/Input Area */}
       <View style={styles.bottomNav}>
+        {/* Slash Command Suggestions */}
+        {showSuggestions && (
+          <View style={styles.suggestionsContainer}>
+            <FlatList
+              data={slashCommands}
+              renderItem={renderSuggestionItem}
+              keyExtractor={(item) => item.id}
+              style={styles.suggestionsList}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+        )}
+        
         {/* Input Bar (Modern AI chat input design) */}
         <View style={styles.inputBar}>
-          {/* Left side button (slash command) */}
-          <TouchableOpacity style={styles.slashButton}>
-            <Text style={styles.slashText}>/</Text>
+          {/* Left side buttons */}
+          <TouchableOpacity style={styles.iconButton}>
+            <Ionicons name="add" size={24} color="#000" />
           </TouchableOpacity>
           
           {/* Input field */}
@@ -93,11 +134,18 @@ export default function Index() {
             style={styles.textInput}
             placeholder="Type a message..."
             placeholderTextColor="#999"
+            onFocus={() => setShowSuggestions(false)}
           />
           
-          {/* Right side button (circle) */}
-          <TouchableOpacity style={styles.circleButton}>
-            {/* Empty circle button */}
+          {/* Vertical divider */}
+          <View style={styles.verticalDivider} />
+          
+          {/* Right side buttons */}
+          <TouchableOpacity style={styles.iconButton}>
+            <Text style={styles.buttonText}>AI</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sendButton}>
+            <Text style={styles.buttonText}>Send</Text>
           </TouchableOpacity>
         </View>
         
@@ -134,14 +182,7 @@ export default function Index() {
             router.push('/instant');
           }}>
             <Text style={styles.buttonText}>Q</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.minimalSquareButton} onPress={() => {
-            router.push('/tools');
-          }}>
-            <Text style={styles.buttonText}>T</Text>
-          </TouchableOpacity>
-          
+          </TouchableOpacity>         
           <View style={styles.shellBarSpacer} />
           
           <TouchableOpacity 
@@ -170,7 +211,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#f0f2f5',
   },
   headerTitleContainer: {
     flexDirection: 'row',
@@ -204,6 +245,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f2f5',
   },
   listItemContent: {
     flex: 1,
@@ -233,7 +276,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#f0f2f5',
   },
   emptyContainer: {
     flex: 1,
@@ -255,42 +298,41 @@ const styles = StyleSheet.create({
   },
   bottomNav: {
     borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
+    borderTopColor: '#f0f2f5',
     paddingBottom: 20,
   },
   inputBar: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    height: 50,
+    paddingHorizontal: 10,
+    paddingVertical: 0,
+    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#f0f2f5',
   },
-  slashButton: {
-    padding: 8,
-  },
-  slashText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#555',
+  iconButton: {
+    padding: 10,
   },
   textInput: {
     flex: 1,
-    height: 40,
+    height: 50,
     marginHorizontal: 10,
     paddingHorizontal: 10,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 20,
     fontSize: 16,
   },
-  circleButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#e0e0e0',
-    justifyContent: 'center',
-    alignItems: 'center',
+  verticalDivider: {
+    width: 1,
+    height: 40,
+    backgroundColor: '#f0f2f5',
+    marginHorizontal: 5,
+  },
+  sendButton: {
+    padding: 10,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#007AFF',
   },
   agentBar: {
     flexDirection: 'row',
@@ -299,11 +341,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#f0f2f5',
   },
   minimalButton: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#f0f2f5',
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -312,7 +354,7 @@ const styles = StyleSheet.create({
   },
   minimalSquareButton: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#f0f2f5',
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -321,17 +363,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  buttonText: {
-    fontSize: 14,
-    color: '#333',
-  },
   rightButtons: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  iconButton: {
-    marginLeft: 15,
-    padding: 5,
   },
   shellBar: {
     flexDirection: 'row',
@@ -345,11 +379,55 @@ const styles = StyleSheet.create({
   emojiButton: {
     padding: 8,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#f0f2f5',
     borderRadius: 6,
     backgroundColor: '#fff',
   },
   emojiText: {
     fontSize: 18,
+  },
+  suggestionsContainer: {
+    position: 'absolute',
+    bottom: '100%',
+    left: 0,
+    right: 0,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#f0f2f5',
+    borderRadius: 8,
+    marginHorizontal: 15,
+    marginBottom: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    maxHeight: 250,
+  },
+  suggestionsList: {
+    padding: 10,
+  },
+  suggestionItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  commandText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  descriptionText: {
+    fontSize: 14,
+    color: '#666',
+    flex: 1,
+    marginLeft: 10,
+  },
+  activeSlash: {
+    color: '#007AFF',
   },
 });
